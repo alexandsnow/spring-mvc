@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 /**
  * Created by yang_gao on 2017/3/26.
+ * getApplicationContext
  */
 
 @Service

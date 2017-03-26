@@ -14,6 +14,7 @@
 
     <mvc:resources mapping="/img/**" location="./asserts/img/"/>
     <mvc:resources mapping="/css/**" location="./asserts/css/"/>
+    <mvc:resources mapping="/js/**" location="./asserts/lib/"/>
 
     <bean id="freemarkerConfig" class="org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer">
         <property name="templateLoaderPath" value="/WEB-INF/freemarker/"/>
