@@ -25,6 +25,8 @@
         <property name="cache" value="true"/>
         <property name="prefix" value=""/>
         <property name="suffix" value=".ftl"/>
+        <property name="exposeRequestAttributes" value="true" />
+        <property name="requestContextAttribute" value="request"/>
     </bean>
 
 </beans>

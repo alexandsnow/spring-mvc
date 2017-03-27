@@ -12,14 +12,12 @@
     <pre id = "banner_pre">
         ${banner}
     </pre>
-
     <div style="width: 10%;margin: 0 auto;display: block">
         <button v-on:click="parseBanner">Enter</button>
     </div>
 </div>
 
-
 </body>
-<script src="/js/vue.js"></script>
-<script src="/js/app.js"></script>
+<script src=${request.getContextPath()}/js/vue.js></script>
+<script src=${request.getContextPath()}/js/app.js></script>
 </html>
