@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Daniella Realm</title>
+    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-default/index.css">
+    <link rel="stylesheet" href="/realm-css/realm.css">
+</head>
+<body>
+<div class="content">
+    <!--顶部开始-->
+    <el-row type="flex" class="row-bg realm-head">
+        <el-col :span="6" class="realm-head-brand">Daniella Realm</el-col>
+        <el-col :span="2" :offset="14" class="realm-head-img">image</el-col>
+        <el-col :span="2" class="realm-head-user">Daniella</el-col>
+    </el-row>
+    <!--顶部结束-->
+    
+    <el-row type="flex" class="row-bg">
+        <!--侧边栏开始-->
+        <div class="realm-sidebar">
+            <el-menu default-active="1" class="el-menu-vertical-demo" theme="dark">
+                <el-submenu index="1">
+                    <template slot="title"><i class="el-icon-message"></i>Role Manage</template>
+                    <el-menu-item-group>
+                        <template slot="title">User Auth</template>
+                        <el-menu-item index="1-1">On Line</el-menu-item>
+                        <el-menu-item index="1-2">Off Line</el-menu-item>
+                    </el-menu-item-group>
+                    
+                    <el-menu-item-group>
+                        <template slot="title">Role Auth</template>
+                        <el-menu-item index="1-3">DB</el-menu-item>
+                        <el-menu-item index="1-4">ToList</el-menu-item>
+                    </el-menu-item-group>
+                    
+                    <el-menu-item-group>
+                        <template slot="title">Page Auth</template>
+                        <el-menu-item index="1-5">Page Register</el-menu-item>
+                        <el-menu-item index="1-6">Authorization</el-menu-item>
+                    </el-menu-item-group>
+                
+                </el-submenu>
+                <el-menu-item index="2"><i class="el-icon-menu"></i>Todo-List</el-menu-item>
+                <el-menu-item index="3"><i class="el-icon-setting"></i>Daniella</el-menu-item>
+            </el-menu>
+        </div>
+        <!--侧边栏结束-->
+        
+        <!--内容部分开始-->
+        <div class=realm-content>
+            <div class="realm-content-todo">
+                <!--title-->
+                <el-row>
+                    <el-col :span="6" :offset="9">
+                        <h2 class="todo-title">What is Next?</h2>
+                    </el-col>
+                </el-row>
+                <!--input-->
+                <el-row type="flex">
+                    <el-col :xs={span:12,offset:6} :lg={span:8,offset:8}>
+                        <el-input v-model="input" placeholder="请输入内容"></el-input>
+                    </el-col>
+                </el-row>
+                
+                <!--show-->
+                <el-row class="todo-table" type="flex">
+                    <el-col :xs={span:12,offset:6} :lg={span:12,offset:6}>
+                        <template>
+                            <el-table :data="todoList" stripe style="width: 100%">
+                                <el-table-column prop="date" label="日期" min-width="180"></el-table-column>
+                                <el-table-column prop="content" label="内容" min-width="180"></el-table-column>
+                                <el-table-column prop="address" label="操作" min-width="180">
+                                    <template scope="scope">
+                                        <el-button size="small">编辑</el-button>
+                                        <el-button size="small" type="danger">删除</el-button>
+                                    </template>
+                                </el-table-column>
+                            </el-table>
+                        </template>
+                    </el-col>
+                </el-row>
+            
+            </div>
+        
+        </div>
+        <!--内容部分结束-->
+    </el-row>
+
+
+</div>
+<script src="/lib/js/vue.js"></script>
+<script src="https://unpkg.com/element-ui/lib/index.js"></script>
+<script src="/page/app.js"></script>
+</body>
+</html>

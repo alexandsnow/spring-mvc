@@ -22,5 +22,10 @@ public class helloRealm {
         modelAndView.addObject("banner",getResourceUtil.getResource("classpath:banner.txt"));
         return modelAndView;
     }
+    @RequestMapping(method = RequestMethod.GET,value = "home")
+    public ModelAndView home(){
+        ModelAndView modelAndView = new ModelAndView("home");
+        return modelAndView;
+    }
 
 }

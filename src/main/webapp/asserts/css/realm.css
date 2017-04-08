@@ -1,0 +1,61 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+.realm-head {
+    height: 55px;
+    line-height: 55px;
+    background-color: #1F2D3D;
+    color: #ffffff;
+    padding-left: 20px;
+}
+
+.realm-head-brand {
+
+}
+
+.realm-head-user {
+    float: right;
+    text-align: center;
+}
+
+.realm-head-img {
+
+}
+
+.realm-sidebar {
+    width: 300px;
+    height: 895px;
+    background-color: #324157;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    top: 0;
+}
+
+.realm-content {
+    float: left;
+    margin-left: 300px;
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-top: 20px;
+    width: 100%;
+}
+
+.realm-content-todo {
+    margin-top: 50px;
+}
+
+.todo-title {
+    padding-top: 30px;
+    padding-bottom: 30px;
+}
+
+.todo-table {
+    margin-top: 50px;
+}
+
+.todo-list-item {
+    margin-top: 50px;
+}
