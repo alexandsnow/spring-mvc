@@ -10,13 +10,19 @@
             http://www.springframework.org/schema/mvc
             http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd">
     <context:component-scan base-package="com.alex.realm"/>
-    <mvc:annotation-driven/>
+    <!-- 解决@ResponseBody 的实现类其默认的编码是 iso-8859-1的问题 -->
+    <mvc:annotation-driven>
+        <mvc:message-converters>
+            <!-- default StringHttpMessageConverter, solve encoding problem -->
+            <bean class="org.springframework.http.converter.StringHttpMessageConverter">
+                <constructor-arg value="UTF-8" />
+                <property name="writeAcceptCharset" value="false" />
+            </bean>
+        </mvc:message-converters>
+    </mvc:annotation-driven>
 
 
-    <mvc:resources mapping="/page/**" location="./page/"/>
-    <mvc:resources mapping="/realm-css/**" location="./asserts/css/"/>
-    <mvc:resources mapping="/realm-js/**" location="./asserts/js/"/>
-    <mvc:resources mapping="/lib/**" location="./asserts/lib/"/>
+    <mvc:resources mapping="/dist/**" location="./dist/"/>
 
     <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
         <property name="maxUploadSize" value="104857600" />
@@ -25,18 +31,18 @@
     </bean>
 
 
-    <bean id="freemarkerConfig" class="org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer">
-        <property name="templateLoaderPath" value="/WEB-INF/freemarker/"/>
-        <property name="defaultEncoding" value="utf-8"/>
-    </bean>
+    <!-- 配置freemarker-->
+    <!--<bean id="freemarkerConfig" class="org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer">-->
+        <!--<property name="templateLoaderPath" value="/WEB-INF/freemarker/"/>-->
+        <!--<property name="defaultEncoding" value="utf-8"/>-->
+    <!--</bean>-->
 
-    <bean id="viewResolver" class="org.springframework.web.servlet.view.freemarker.FreeMarkerViewResolver">
-        <property name="cache" value="true"/>
-        <property name="contentType" value="text/html;charset=UTF-8"></property>
-        <property name="prefix" value=""/>
-        <property name="suffix" value=".ftl"/>
-        <property name="exposeRequestAttributes" value="true" />
-        <property name="requestContextAttribute" value="request"/>
-    </bean>
+    <!--<bean id="viewResolver" class="org.springframework.web.servlet.view.freemarker.FreeMarkerViewResolver">-->
+        <!--<property name="cache" value="true"/>-->
+        <!--<property name="prefix" value=""/>-->
+        <!--<property name="suffix" value=".ftl"/>-->
+        <!--<property name="exposeRequestAttributes" value="true" />-->
+        <!--<property name="requestContextAttribute" value="request"/>-->
+    <!--</bean>-->
 
 </beans>

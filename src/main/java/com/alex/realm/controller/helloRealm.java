@@ -1,5 +1,7 @@
 package com.alex.realm.controller;
 
+import com.alex.realm.persist.dao.UserDao;
+import com.alex.realm.persist.entity.UserEntity;
 import com.alex.realm.utils.GetResourceUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,16 +18,19 @@ public class helloRealm {
     @Autowired
     private GetResourceUtil getResourceUtil;
 
+    @Autowired
+    private UserDao userDao;
+
     @RequestMapping(method = RequestMethod.GET,value = "banner")
     public ModelAndView getBanner(){
         ModelAndView modelAndView = new ModelAndView("banner");
         modelAndView.addObject("banner",getResourceUtil.getResource("classpath:banner.txt"));
         return modelAndView;
     }
-    @RequestMapping(method = RequestMethod.GET,value = "home")
-    public ModelAndView home(){
-        ModelAndView modelAndView = new ModelAndView("home");
-        return modelAndView;
+    @RequestMapping(method = RequestMethod.GET,value = "users")
+    public UserEntity getUser(){
+        return userDao.selectByPrimaryKey(1);
     }
+
 
 }
