@@ -22,7 +22,15 @@
         <url-pattern>/*</url-pattern>
     </filter-mapping>
 
+    <filter>
+        <filter-name>cors</filter-name>
+        <filter-class>com.alex.realm.config.CrossConfig</filter-class>
+    </filter>
 
+    <filter-mapping>
+        <filter-name>cors</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
 
     <context-param>
         <param-name>contextConfigLocation</param-name>

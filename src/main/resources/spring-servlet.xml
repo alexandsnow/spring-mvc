@@ -28,8 +28,8 @@
         </mvc:message-converters>
     </mvc:annotation-driven>
 
-
     <mvc:resources mapping="/dist/**" location="./dist/"/>
+    <mvc:resources mapping="/swaggerUI/**" location="./swaggerUI/"/>
 
     <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
         <property name="maxUploadSize" value="104857600" />
