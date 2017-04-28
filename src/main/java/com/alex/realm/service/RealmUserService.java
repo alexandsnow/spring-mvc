@@ -1,7 +1,6 @@
 package com.alex.realm.service;
 
 import com.alex.realm.persist.entity.RealmUserEntity;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
 

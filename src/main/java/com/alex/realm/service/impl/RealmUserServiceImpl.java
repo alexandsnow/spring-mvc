@@ -18,7 +18,7 @@ public class RealmUserServiceImpl implements RealmUserService {
     private RealmUserDao realmUserDao;
 
     public List<RealmUserEntity> getUsers() {
-        return realmUserDao.selectAll();
+        return null;
     }
     public RealmUserEntity getUser(Integer id) {
         return realmUserDao.selectByPrimaryKey(id);

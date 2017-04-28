@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.alex.realm.persist.dao.RealmUserRoleDao" >
+  <resultMap id="BaseResultMap" type="com.alex.realm.persist.entity.RealmUserRoleEntity" >
+    <id column="role_id" property="roleId" jdbcType="INTEGER" />
+    <id column="user_id" property="userId" jdbcType="INTEGER" />
+    <result column="data_create_time" property="dataCreateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    role_id, user_id, data_create_time
+  </sql>
+
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="com.alex.realm.persist.entity.RealmUserRoleKey" >
+    select 
+    <include refid="Base_Column_List" />
+    from user_role
+    where role_id = #{roleId,jdbcType=INTEGER}
+      and user_id = #{userId,jdbcType=INTEGER}
+  </select>
+  <select id="selectByUserId" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select
+    <include refid="Base_Column_List" />
+    from user_role
+    where user_id = #{userId,jdbcType=INTEGER}
+  </select>
+  <select id="selectByRoleId" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select
+    <include refid="Base_Column_List" />
+    from user_role
+    where role_id = #{roleId,jdbcType=INTEGER}
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="com.alex.realm.persist.entity.RealmUserRoleKey" >
+    delete from user_role
+    where role_id = #{roleId,jdbcType=INTEGER}
+      and user_id = #{userId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.alex.realm.persist.entity.RealmUserRoleEntity" >
+    insert into user_role (role_id, user_id, data_create_time
+      )
+    values (#{roleId,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{dataCreateTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.alex.realm.persist.entity.RealmUserRoleEntity" >
+    insert into user_role
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="roleId != null" >
+        role_id,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="dataCreateTime != null" >
+        data_create_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="roleId != null" >
+        #{roleId,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="dataCreateTime != null" >
+        #{dataCreateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.alex.realm.persist.entity.RealmUserRoleEntity" >
+    update user_role
+    <set >
+      <if test="dataCreateTime != null" >
+        data_create_time = #{dataCreateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where role_id = #{roleId,jdbcType=INTEGER}
+      and user_id = #{userId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.alex.realm.persist.entity.RealmUserRoleEntity" >
+    update user_role
+    set data_create_time = #{dataCreateTime,jdbcType=TIMESTAMP}
+    where role_id = #{roleId,jdbcType=INTEGER}
+      and user_id = #{userId,jdbcType=INTEGER}
+  </update>
+</mapper>

@@ -4,11 +4,15 @@
   <resultMap id="BaseResultMap" type="com.alex.realm.persist.entity.RealmUserEntity" >
     <id column="id" property="id" jdbcType="INTEGER" />
     <result column="user_name" property="userName" jdbcType="VARCHAR" />
+    <result column="nick_name" property="nickName" jdbcType="VARCHAR" />
     <result column="password" property="password" jdbcType="VARCHAR" />
-    <result column="role" property="role" jdbcType="VARCHAR" />
+    <result column="account_created_time" property="accountCreatedTime" jdbcType="TIMESTAMP" />
+    <result column="account_valid_time" property="accountValidTime" jdbcType="INTEGER" />
+    <result column="is_enabled" property="isEnabled" jdbcType="BIT" />
+    <result column="is_account_non_locked" property="isAccountNonLocked" jdbcType="BIT" />
   </resultMap>
   <sql id="Base_Column_List" >
-    id, user_name, password, role
+    id, user_name, nick_name,password, account_created_time, account_valid_time, is_enabled, is_account_non_locked
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
@@ -16,19 +20,106 @@
     from user
     where id = #{id,jdbcType=INTEGER}
   </select>
-
   <select id="selectByUserName" resultMap="BaseResultMap" parameterType="java.lang.String" >
     select
     <include refid="Base_Column_List" />
     from user
-    where user_name = #{name,jdbcType=VARCHAR}
+    where user_name = #{userName,jdbcType=VARCHAR}
   </select>
 
-  <select id="selectAll" resultMap="BaseResultMap">
-    select
-    <include refid="Base_Column_List" />
-    from user
-  </select>
-
-
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from user
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.alex.realm.persist.entity.RealmUserEntity" >
+    insert into user (id, user_name, password, 
+      account_created_time, account_valid_time, 
+      is_enabled, is_account_non_locked)
+    values (#{id,jdbcType=INTEGER}, #{userName,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
+      #{accountCreatedTime,jdbcType=TIMESTAMP}, #{accountValidTime,jdbcType=INTEGER}, 
+      #{isEnabled,jdbcType=BIT}, #{isAccountNonLocked,jdbcType=BIT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.alex.realm.persist.entity.RealmUserEntity" >
+    insert into user
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="userName != null" >
+        user_name,
+      </if>
+      <if test="password != null" >
+        password,
+      </if>
+      <if test="accountCreatedTime != null" >
+        account_created_time,
+      </if>
+      <if test="accountValidTime != null" >
+        account_valid_time,
+      </if>
+      <if test="isEnabled != null" >
+        is_enabled,
+      </if>
+      <if test="isAccountNonLocked != null" >
+        is_account_non_locked,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="userName != null" >
+        #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null" >
+        #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="accountCreatedTime != null" >
+        #{accountCreatedTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="accountValidTime != null" >
+        #{accountValidTime,jdbcType=INTEGER},
+      </if>
+      <if test="isEnabled != null" >
+        #{isEnabled,jdbcType=BIT},
+      </if>
+      <if test="isAccountNonLocked != null" >
+        #{isAccountNonLocked,jdbcType=BIT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.alex.realm.persist.entity.RealmUserEntity" >
+    update user
+    <set >
+      <if test="userName != null" >
+        user_name = #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null" >
+        password = #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="accountCreatedTime != null" >
+        account_created_time = #{accountCreatedTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="accountValidTime != null" >
+        account_valid_time = #{accountValidTime,jdbcType=INTEGER},
+      </if>
+      <if test="isEnabled != null" >
+        is_enabled = #{isEnabled,jdbcType=BIT},
+      </if>
+      <if test="isAccountNonLocked != null" >
+        is_account_non_locked = #{isAccountNonLocked,jdbcType=BIT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.alex.realm.persist.entity.RealmUserEntity" >
+    update user
+    set user_name = #{userName,jdbcType=VARCHAR},
+      password = #{password,jdbcType=VARCHAR},
+      account_created_time = #{accountCreatedTime,jdbcType=TIMESTAMP},
+      account_valid_time = #{accountValidTime,jdbcType=INTEGER},
+      is_enabled = #{isEnabled,jdbcType=BIT},
+      is_account_non_locked = #{isAccountNonLocked,jdbcType=BIT}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
 </mapper>
