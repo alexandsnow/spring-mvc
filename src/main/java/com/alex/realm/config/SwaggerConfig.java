@@ -1,37 +1,51 @@
 package com.alex.realm.config;
 
-import com.mangofactory.swagger.configuration.SpringSwaggerConfig;
-import com.mangofactory.swagger.models.dto.ApiInfo;
-import com.mangofactory.swagger.plugin.EnableSwagger;
-import com.mangofactory.swagger.plugin.SwaggerSpringMvcPlugin;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import springfox.documentation.builders.PathSelectors;
+import springfox.documentation.builders.RequestHandlerSelectors;
+import springfox.documentation.service.ApiInfo;
+import springfox.documentation.spi.DocumentationType;
+import springfox.documentation.spring.web.plugins.Docket;
+import springfox.documentation.swagger.web.UiConfiguration;
+import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 /**
  * Created by yang_gao on 2017/4/27.
  */
 @Configuration
-@EnableSwagger
+@EnableSwagger2
 public class SwaggerConfig {
 
-    @Autowired
-    private SpringSwaggerConfig swaggerConfig;
 
     @Bean
-    public SwaggerSpringMvcPlugin getSwaggerSpringPlugin(){
-        SwaggerSpringMvcPlugin plugin;
-        plugin  = new SwaggerSpringMvcPlugin(swaggerConfig).apiInfo(generateApiInfo()).apiVersion("1.0.0");
-        return plugin;
-    };
+    public Docket getDocket(){
+        Docket docket = new Docket(DocumentationType.SWAGGER_2)
+                .groupName("Realm")
+                .select()
+                .apis(RequestHandlerSelectors.any())
+                .paths(PathSelectors.any())
+                .build()
+                .apiInfo(generateApiInfo());
+        return docket;
+    }
+
     private static ApiInfo generateApiInfo(){
-        return new ApiInfo(
-                "Realm",
-                "API for Realm",
-                "Realm API Terms Of Service",
-                "gaoyang_dev@outlook.com",
-                "MIT",
-                "http:DaniellaRealm.cn:8080/Realm"
-        );
+        ApiInfo apiInfo = new ApiInfo("Realm","Realm BackEnd Api","1.0.0",
+                "http://DaniellaRealm:8080/Realm",
+                "contact","MIT","http://DaniellaRealm:8080/Realm");
+        return apiInfo;
+    }
+
+    @Bean
+    public UiConfiguration getUiConfig() {
+        return new UiConfiguration(
+                null,// url,暂不用
+                "none",       // docExpansion          => none | list
+                "alpha",      // apiSorter             => alpha
+                "schema",     // defaultModelRendering => schema
+                UiConfiguration.Constants.DEFAULT_SUBMIT_METHODS,
+                false,        // enableJsonEditor      => true | false
+                true);        // showRequestHeaders    => true | false
     }
 }

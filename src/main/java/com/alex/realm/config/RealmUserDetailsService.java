@@ -19,7 +19,7 @@ import java.util.List;
 /**
  * Created by yang_gao on 2017/4/27.
  */
-public class RealmUserDetailsService implements UserDetailsService{
+public class RealmUserDetailsService implements UserDetailsService {
 
     @Autowired
     RealmUserDao realmUserDao;
@@ -27,21 +27,33 @@ public class RealmUserDetailsService implements UserDetailsService{
     RealmRoleDao realmRoleDao;
     @Autowired
     RealmUserRoleDao realmUserRoleDao;
+
     public UserDetails loadUserByUsername(String name) throws UsernameNotFoundException {
         UserDetails details = null;
-        // 三次io操作
         RealmUserEntity realmUser = realmUserDao.selectByUserName(name);
-        List<RealmUserRoleEntity> realmUserRoleList = realmUserRoleDao.selectByUserId(realmUser.getId());
-        List<Integer> roleIds = new ArrayList<Integer>();
-        for (RealmUserRoleEntity realmUserRoleEntity : realmUserRoleList) {
-            roleIds.add(realmUserRoleEntity.getRoleId());
-        }
-        List<RealmRoleEntity> realmRoleList = realmRoleDao.selectByPrimaryKeyBatch(roleIds);
-        String [] roleName = new String[realmRoleList.size()];
-        for (int i = 0; i < realmRoleList.size(); i++) {
-            roleName[i] = realmRoleList.get(i).getRoleName();
-        }
-        details = new User(realmUser.getUserName(),realmUser.getPassword(), AuthorityUtils.createAuthorityList(roleName));
+        details = new User(realmUser.getUserName(), realmUser.getPassword(), AuthorityUtils.createAuthorityList(this.getRoles(realmUser)));
         return details;
+    }
+
+    // 三次io操作
+    private String[] getRoles(RealmUserEntity realmUser) {
+        if (null != realmUser) {
+            List<RealmUserRoleEntity> realmUserRoleList = realmUserRoleDao.selectByUserId(realmUser.getId());
+            if (null != realmUserRoleList) {
+                List<Integer> roleIds = new ArrayList<Integer>();
+                for (RealmUserRoleEntity realmUserRoleEntity : realmUserRoleList) {
+                    roleIds.add(realmUserRoleEntity.getRoleId());
+                }
+                List<RealmRoleEntity> realmRoleList = realmRoleDao.selectByPrimaryKeyBatch(roleIds);
+                if (null != realmRoleList) {
+                    String[] roleNames = new String[realmRoleList.size()];
+                    for (int i = 0; i < realmRoleList.size(); i++) {
+                        roleNames[i] = realmRoleList.get(i).getRoleName();
+                    }
+                    return roleNames;
+                }
+            }
+        }
+        return null;
     }
 }
