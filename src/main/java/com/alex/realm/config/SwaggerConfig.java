@@ -21,14 +21,14 @@ public class SwaggerConfig {
     @Bean
     public SwaggerSpringMvcPlugin getSwaggerSpringPlugin(){
         SwaggerSpringMvcPlugin plugin;
-        plugin  = new SwaggerSpringMvcPlugin(swaggerConfig).apiInfo(generateApiInfo());
+        plugin  = new SwaggerSpringMvcPlugin(swaggerConfig).apiInfo(generateApiInfo()).apiVersion("1.0.0");
         return plugin;
     };
     private static ApiInfo generateApiInfo(){
         return new ApiInfo(
                 "Realm",
-                "All Api in project Realm",
-                "My Apps API terms of service",
+                "API for Realm",
+                "Realm API Terms Of Service",
                 "gaoyang_dev@outlook.com",
                 "MIT",
                 "http:DaniellaRealm.cn:8080/Realm"

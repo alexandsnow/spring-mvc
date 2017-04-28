@@ -8,8 +8,9 @@
 
     <security:http auto-config="true">
         <!--注意用户的角色必须要以关键字ROLE开始，否则不会有作用-->
-        <!--<security:intercept-url pattern="/user/**" access="hasRole('ROLE_ADMIN')"/>-->
+        <security:intercept-url pattern="/swagger/**" access="hasRole('ROLE_ADMIN')"/>
         <!--<security:intercept-url pattern="/**" access="hasRole('ROLE_USER')"/>-->
+        <security:csrf request-matcher-ref="csrfSecurityRequestMatcher"/>
     </security:http>
 
     <security:authentication-manager>
@@ -19,4 +20,5 @@
 
     <bean id = "realmUserDetailsService" class="com.alex.realm.config.RealmUserDetailsService"/>
 
+    <bean id ="csrfSecurityRequestMatcher" class="com.alex.realm.config.CsrfSecurityRequestMatcher"/>
 </beans>
