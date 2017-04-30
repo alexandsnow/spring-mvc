@@ -20,7 +20,19 @@ public class HelloRealm {
 
     @RequestMapping(value = "check",method = RequestMethod.GET)
     @ApiOperation(value="heathCheck",notes = "check Health")
-    public String healthCheck(HttpServletRequest request){
-        return "welcome "+GetLoginUserUtil.getUserDetails().getUsername()+" ,server is running";
+    public String healthCheck(){
+        return "server is running ...";
+    }
+
+    @RequestMapping(value = "checkSafely",method = RequestMethod.GET)
+    @ApiOperation(value="heathCheck",notes = "check Health")
+    public String healthCheckWithSecurity(){
+        String loginUserName = null;
+        try {
+            loginUserName = GetLoginUserUtil.getUserDetails().getUsername();
+        } catch (Exception e) {
+            return "用户没有经过登陆，无法查看受保护的API";
+        }
+        return "welcome "+loginUserName+" ,server is running";
     }
 }
