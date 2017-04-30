@@ -12,6 +12,7 @@ public interface RealmUserDao {
 
     RealmUserEntity selectByPrimaryKey(Integer id);
     RealmUserEntity selectByUserName(String userName);
+    List<RealmUserEntity> selectAll();
     List<String> selectUserRoleByUserName(String userName);
     int deleteByPrimaryKey(Integer id);
     int insert(RealmUserEntity record);

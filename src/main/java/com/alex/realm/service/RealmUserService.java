@@ -13,5 +13,5 @@ public interface RealmUserService {
     public int CreateUser(RealmUserEntity userEntity) throws Exception;
     public int deleteUserById(Integer id) throws Exception;
     public int updateUser(RealmUserEntity userEntity) throws Exception;
-    public int updateUserById(Integer id) throws Exception;
+    public int updateUserDelta(RealmUserEntity userEntity) throws Exception;
 }

@@ -26,16 +26,21 @@
     from user
     where user_name = #{userName,jdbcType=VARCHAR}
   </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+      select
+        <include refid="Base_Column_List" />
+      from user
+  </select>
 
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from user
     where id = #{id,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="com.alex.realm.persist.entity.RealmUserEntity" >
-    insert into user (id, user_name, password, 
+    insert into user (user_name, nick_name,password,
       account_created_time, account_valid_time, 
       is_enabled, is_account_non_locked)
-    values (#{id,jdbcType=INTEGER}, #{userName,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
+    values (#{userName,jdbcType=VARCHAR},#{nickName,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR},
       #{accountCreatedTime,jdbcType=TIMESTAMP}, #{accountValidTime,jdbcType=INTEGER}, 
       #{isEnabled,jdbcType=BIT}, #{isAccountNonLocked,jdbcType=BIT})
   </insert>
@@ -47,6 +52,9 @@
       </if>
       <if test="userName != null" >
         user_name,
+      </if>
+      <if test="nickName != null" >
+        nick_name,
       </if>
       <if test="password != null" >
         password,
@@ -71,6 +79,9 @@
       <if test="userName != null" >
         #{userName,jdbcType=VARCHAR},
       </if>
+      <if test="nickName != null" >
+        #{nickName,jdbcType=VARCHAR},
+      </if>
       <if test="password != null" >
         #{password,jdbcType=VARCHAR},
       </if>
@@ -90,9 +101,12 @@
   </insert>
   <update id="updateByPrimaryKeySelective" parameterType="com.alex.realm.persist.entity.RealmUserEntity" >
     update user
-    <set >
+    <set>
       <if test="userName != null" >
         user_name = #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="nickName != null" >
+        nick_name = #{nickName,jdbcType=VARCHAR},
       </if>
       <if test="password != null" >
         password = #{password,jdbcType=VARCHAR},
@@ -115,6 +129,7 @@
   <update id="updateByPrimaryKey" parameterType="com.alex.realm.persist.entity.RealmUserEntity" >
     update user
     set user_name = #{userName,jdbcType=VARCHAR},
+      nick_name = #{nickName,jdbcType=VARCHAR},
       password = #{password,jdbcType=VARCHAR},
       account_created_time = #{accountCreatedTime,jdbcType=TIMESTAMP},
       account_valid_time = #{accountValidTime,jdbcType=INTEGER},

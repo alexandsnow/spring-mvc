@@ -40,6 +40,7 @@ public class UserController {
 
     @RequestMapping(method = RequestMethod.POST)
     @PreAuthorize(value="hasRole('ROLE_ADMIN')")
+    @ApiOperation(value = "getUsers",notes ="get all users in this system")
     public RealmBaseResponse createUser(@RequestBody RealmUserEntity userEntity){
         RealmBaseResponse response = new RealmBaseResponse();
         try {
@@ -76,21 +77,21 @@ public class UserController {
         try {
             response.setCode(RealmError.CMM_SUCCESS);
             response.setMessage(RealmError.errMsg.get(RealmError.CMM_SUCCESS));
-            response.setResponse(realmUserService.getUser(id));
+            response.setResponse(realmUserService.deleteUserById(id));
         } catch (Exception e) {
             response.setCode(RealmError.DELETE_USER_ERROR);
             response.setMessage(RealmError.errMsg.get(RealmError.DELETE_USER_ERROR));
         }
         return response;
     }
-    @RequestMapping(value = "/{id}",method = RequestMethod.PUT)
+    @RequestMapping(method = RequestMethod.PUT)
     @PreAuthorize(value="hasRole('ROLE_ADMIN')")
-    public RealmBaseResponse updateUserById(@PathVariable("id")Integer id){
+    public RealmBaseResponse updateUserById(@RequestBody RealmUserEntity entity){
         RealmBaseResponse response = new RealmBaseResponse();
         try {
             response.setCode(RealmError.CMM_SUCCESS);
             response.setMessage(RealmError.errMsg.get(RealmError.CMM_SUCCESS));
-            response.setResponse(realmUserService.updateUserById(id));
+            response.setResponse(realmUserService.updateUser(entity));
         } catch (Exception e) {
             response.setCode(RealmError.UPDATE_USER_ERROR);
             response.setMessage(RealmError.errMsg.get(RealmError.UPDATE_USER_ERROR));
