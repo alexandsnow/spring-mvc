@@ -15,19 +15,19 @@ import java.util.*;
  * Created by yang_gao on 2017/3/28.
  */
 
-@RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = {"classpath:applicationContext.xml","classpath:spring-servlet.xml","classpath:spring-mybatis.xml"})
+//@RunWith(SpringJUnit4ClassRunner.class)
+//@ContextConfiguration(locations = {"classpath:applicationContext.xml","classpath:spring-servlet.xml","classpath:spring-mybatis.xml"})
 public class utilTest {
 
-    @Autowired
-    private ApplicationContextUtil applicationContextUtil;
-
-    @Test
-    public void testUtil(){
-        String beanName[] = applicationContextUtil.getBeansNameArray();
-        for (String s : beanName) {
-            System.out.println(s);
-        }
-    }
+//    @Autowired
+//    private ApplicationContextUtil applicationContextUtil;
+//
+//    @Test
+//    public void testUtil(){
+//        String beanName[] = applicationContextUtil.getBeansNameArray();
+//        for (String s : beanName) {
+//            System.out.println(s);
+//        }
+//    }
 
 }
